@@ -42,7 +42,7 @@ class UserController {
 			const { username } = req.body;
 			const { id } = req.params;
 
-			if (res.locals && res.locals.userId != id)
+			if (res.locals && res.locals.user.id != id)
 				return res.send('Unauthorized');
 
 			const user = await User.findOne({ where: { id: id } });
@@ -65,7 +65,7 @@ class UserController {
 	async deleteUser(req: Request, res: Response) {
 		try {
 			const { id } = req.params;
-			if (res.locals && res.locals.userId != id)
+			if (res.locals && res.locals.user.id != id)
 				return res.send('Unauthorized');
 
 			const user = await User.findOne({ where: { id: id } });

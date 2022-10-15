@@ -10,10 +10,14 @@ class LoginController {
 	@bodyValidator('username', 'password')
 	async postRegister(req: Request, res: Response) {
 		try {
-			const { username, password } = req.body;
+			const { username, password, role } = req.body;
 			const hashedPassword = await bcrypt.hash(password, 10);
 
-			let user = await User.create({ username, password: hashedPassword });
+			let user = await User.create({
+				username,
+				password: hashedPassword,
+				role,
+			});
 			res.send(user);
 		} catch (error) {
 			console.log(error);

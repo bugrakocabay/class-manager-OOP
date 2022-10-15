@@ -6,16 +6,17 @@ import {
 	InferCreationAttributes,
 } from 'sequelize';
 import { sequelize } from '../config/database';
+import { Class } from './ClassModel';
 
 interface UserModel
 	extends Model<
 		InferAttributes<UserModel>,
 		InferCreationAttributes<UserModel>
 	> {
-	// Some fields are optional when calling UserModel.create() or UserModel.build()
 	id: CreationOptional<number>;
 	username: string;
 	password: string;
+	role?: string;
 }
 
 export const User = sequelize.define<UserModel>(
@@ -34,6 +35,11 @@ export const User = sequelize.define<UserModel>(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		role: {
+			type: DataTypes.ENUM('student', 'teacher', 'admin'),
+		},
 	},
 	{ timestamps: true }
 );
+
+User.hasMany(Class, { onDelete: 'cascade', foreignKey: 'userId' });

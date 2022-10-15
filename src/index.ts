@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import './controllers/LoginController';
 import './controllers/RootController';
 import './controllers/UserController';
+import './controllers/ClassController';
 import { AppRouter } from './AppRouter';
 import { sequelize } from './config/database';
 
